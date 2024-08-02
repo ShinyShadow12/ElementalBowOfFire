@@ -1,0 +1,7 @@
+name: Fire_Bow
+version: 1.0
+main: me.ShinyShadow_.BowOfFire.FireBow
+api-version: 1.20
+commands:
+  givebowoffire:
+     description: Gives a Bow of Fire
