@@ -60,7 +60,7 @@ public class ItemListener implements Listener{
 			Player player = (Player) event.getEntity().getShooter();
 			player.setCooldown(Material.BOW, 50);
 
-		if(player.getInventory().getItemInMainHand().getItemMeta().getLore().equals(Arrays.asList("Sex."))) {
+		if(player.getInventory().getItemInMainHand().getItemMeta().getLore().contains("Normal attack: Hellish Fire.")) {
 
 			eyeLoc = player.getEyeLocation();
             Entity arrow = event.getEntity();
@@ -69,23 +69,26 @@ public class ItemListener implements Listener{
 
             //player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_HURT, 1F, 0.05F);
             player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 1F, 0.5F);
-                      
+            
+            if(arrowsShot == 3) {
+            	 isSpecial = false;
+            }
             arrowsShot -= 1;
   	        item = player.getInventory().getItemInMainHand();
      	    meta = item.getItemMeta();
-            if(arrowsShot > 0 && player.getInventory().getItemInMainHand().getItemMeta().getLore().equals(Arrays.asList("Sex."))) {
+            if(arrowsShot > 0 && player.getInventory().getItemInMainHand().getItemMeta().getLore().contains("Normal attack: Hellish Fire.")) {
                   meta.setDisplayName(ChatColor.GOLD + "Elemental Bow: Fire ("+arrowsShot+")");     
-                  isSpecial = false;
+                 
             }             
             if(arrowsShot == 0) {                 	
                   meta.setDisplayName(ChatColor.GOLD + "SPECIAL SHOT READY");    
                   
             }
             if(arrowsShot < 0) {
-            	isSpecial = true;
+            	 isSpecial = true;
                 new SpecialAttack(player, plugin);
                 arrow.remove();
-            	arrowsShot = 3;
+                arrowsShot = 3;
             }
                   
             item.setItemMeta(meta);
